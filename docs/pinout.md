@@ -112,3 +112,21 @@ serial source at a time. An adapter on the header pins overrides the USB-serial.
 | User LED (red) | `A6` (PTA6) | Active **high** — drive PTA6 high to turn it on |
 | RESET button | `RST` (PTA5) | Resets the MCU; pull-up on board |
 | USER button | `D4` (PTD4) | Connects PTD4 to GND when pressed — enable the internal pull-up |
+
+### USER button: enable the pull-up in your firmware
+
+The USER button has **no pull-up resistor on the board**. It connects PTD4 to GND when pressed (active low).
+Without a pull-up the pin floats and reads random values while the button is released.
+Enable the KE02/KE04 **internal pull-up** for PTD4 before you read it:
+
+```c
+/* KE02/KE04: pull-ups are enabled in the PORT module (PUEL covers PTA..PTD).
+   PTD4 = port D (bits 24..31), pin 4 -> bit 28. */
+PORT->PUEL |= (1u << 28);          /* enable the pull-up on PTD4 */
+GPIOA->PDDR &= ~(1u << 28);        /* PTD4 as input (GPIOA covers PTA..PTD) */
+bool pressed = !(GPIOA->PDIR & (1u << 28));   /* 0 = pressed */
+```
+
+⟨CONFIRM⟩ Check the register and bit names against the reference manual / the SDK header for your part (MKE02Z64 / MKE04Z64) before use.
+
+The RESET button does not need this: the board has a pull-up resistor on RESET, and the MCU's reset pin has an internal pull-up as well.
