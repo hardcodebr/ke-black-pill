@@ -25,6 +25,7 @@ over **SWD**. All usable I/O is on two 1x20 headers.
 - Black Pill size: **20.78 × 52.81 mm**; headers ship loose
 
 ## Documentation
+- [Schematic (PDF)](docs/hardware/)
 - [Quick-Start (power, serial, first program, flashing)](docs/index.md)
 - [Datasheet](docs/datasheet.md)
 - [Pinout](docs/pinout.md)
@@ -39,7 +40,7 @@ HC26060 module (KE02 or KE04, as ordered) · 2× 1x20 pin headers + 1× 1x4 righ
 
 ---
 Made by [HardCode](https://hardcode.com.br) · support@hardcode.com.br
-*Hardware design files are not published.*
+*The schematic is provided as a PDF ([docs/hardware](docs/hardware/)). The editable hardware design files (KiCad sources, layout, Gerbers) are not published.* ⟨TODO: publish the cleaned-up schematic⟩
 
 ## 💬 Feedback
 Suggestions or questions → [open a discussion](https://github.com/hardcodebr/kinetis-ke-module/discussions) · support@hardcode.com.br
