@@ -5,9 +5,9 @@
 <!-- ⟨TODO: pinout graphic docs/img/pinout.png (Waveshare style, separate KE02 / KE04 versions)⟩ -->
 ![pinout](img/pinout.png)
 
-![Top view](img/top.jpg)
+<img src="img/top.jpg" width="600" alt="Top view">
 
-![Bottom view — SWD header 3V3 · DIO · CLK · GND](img/bottom.jpg)
+<img src="img/bottom.jpg" width="300" alt="Bottom view — SWD header 3V3 · DIO · CLK · GND">
 
 - **Pin 1** of both long headers is at the **USB-C end**. Pin names are printed on the board
   next to each pin (`B1`, `A6`, `5V`, `G`, `3V3`, `RST` …). `B1` = port **PTB1**, and so on.
