@@ -9,7 +9,7 @@ Arm Cortex-M0+ with 64 KB flash that runs from **2.7 V to 5.5 V**, so you can wo
 over **SWD**. All usable I/O is on two 1x20 headers.
 
 > 🛒 **Buy:** Tindie — coming soon · Lectronz — coming soon <!-- ⟨TODO: product links once listed⟩ -->
-> 🔌 Need a programmer? KE02/KE04 support for the [HardCode ESP32 Flash Station](https://github.com/hardcodebr) is in development. <!-- ⟨CONFIRM: change to "supported" + product link after the station bench acceptance⟩ -->
+> 🔌 Need a programmer? KE02/KE04 support for the [HardCode Flash Station](https://github.com/hardcodebr) is in development. <!-- ⟨CONFIRM: change to "supported" + product link after the station bench acceptance⟩ -->
 
 ## Features
 - **NXP Kinetis KE02 or KE04** (MKE02Z64 / MKE04Z64), Arm Cortex-M0+, 64 KB flash

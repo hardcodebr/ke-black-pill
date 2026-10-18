@@ -60,7 +60,7 @@ Always select the **exact device** (MKE02Z64 or MKE04Z64) in your tool.
 
 | Probe / tool | How | Status |
 |---|---|---|
-| **HardCode ESP32 Flash Station** | Kinetis KE job, J1 + RST wiring | **In development** ⟨CONFIRM: change after the station bench acceptance⟩ |
+| **HardCode Flash Station** | Kinetis KE job, J1 + RST wiring | **In development** ⟨CONFIRM: change after the station bench acceptance⟩ |
 | **SEGGER J-Link** | Device `MKE02Z64xxx4` or `MKE04Z64xxx4` in J-Flash, J-Link Commander or your IDE ([SEGGER device list](https://www.segger.com/supported-devices/nxp/kinetis-ke/)) | Listed by SEGGER; not tested by HardCode yet ⟨CONFIRM⟩ |
 | **CMSIS-DAP probe + OpenOCD** | `-f interface/cmsis-dap.cfg -f target/ke0x.cfg` (OpenOCD's Kinetis KE0x target + `kinetis_ke` flash driver) | Not tested by HardCode yet ⟨CONFIRM⟩ |
 | **CMSIS-DAP probe + pyOCD** | No built-in KE02/KE04 target — install NXP's device pack first: `pyocd pack install mke04z64vld4` (or `mke02z64vld4`), then `pyocd flash -t mke04z64vld4 app.bin` ⟨CONFIRM: exact target name from `pyocd pack find`⟩ | Not tested by HardCode yet ⟨CONFIRM⟩ |
