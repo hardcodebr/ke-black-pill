@@ -39,9 +39,9 @@ HC26060 module (KE02 or KE04, as ordered) · 2× 1x20 pin headers + 1× 1x4 righ
 *Rev A — first production batch.*
 
 ---
-Made by [HardCode](https://hardcode.com.br) · support@hardcode.com.br
+Made by [HardCode](https://hardcode.com.br) · support@hardcode.tools
 *The schematic is provided as a PDF ([docs/hardware](docs/hardware/)). The editable hardware design files (KiCad sources, layout, Gerbers) are not published.* ⟨TODO: publish the cleaned-up schematic⟩
 
 ## 💬 Feedback
-Suggestions or questions → [open a discussion](https://github.com/hardcodebr/kinetis-ke-module/discussions) · support@hardcode.com.br
+Suggestions or questions → [open a discussion](https://github.com/hardcodebr/kinetis-ke-module/discussions) · support@hardcode.tools
 <!-- ⟨TODO: enable GitHub Discussions on the repo when it is published⟩ -->
