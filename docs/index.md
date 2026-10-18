@@ -1,4 +1,4 @@
-# Quick-Start — Kinetis KE02 / KE04 Module (HC26060)
+# Quick-Start — KE Black Pill (HC26060)
 
 > 🏠 [HardCode — all products](https://github.com/hardcodebr) · 🛒 [Shop](https://lectronz.com/stores/hardcode-electronics) · 🌐 [hardcode.com.br](https://hardcode.com.br)
 
@@ -95,7 +95,7 @@ Trouble? See the **[FAQ](faq.md)**.
 
 ## 💬 Feedback & suggestions
 Ideas, questions, or something you'd like to see? Open a discussion — we read every one:
-**https://github.com/hardcodebr/kinetis-ke-module/discussions**
+**https://github.com/hardcodebr/ke-black-pill/discussions**
 
 ## 🛠️ Custom designs
 Need a custom board or a tweak to this one? We do custom design work — **support@hardcode.tools**

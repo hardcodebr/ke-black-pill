@@ -1,4 +1,4 @@
-# Kinetis KE02 / KE04 Development Module (HC26060)
+# KE Black Pill — NXP Kinetis KE02 / KE04 development module (HC26060)
 
 <!-- ⟨TODO: add the product photo docs/img/hero.jpg (see docs/img/README.md)⟩ -->
 ![product](docs/img/hero.jpg)
@@ -43,5 +43,5 @@ Made by [HardCode](https://hardcode.com.br) · support@hardcode.tools
 *The schematic is provided as a PDF ([docs/hardware](docs/hardware/)). The editable hardware design files (KiCad sources, layout, Gerbers) are not published.* ⟨TODO: publish the cleaned-up schematic⟩
 
 ## 💬 Feedback
-Suggestions or questions → [open a discussion](https://github.com/hardcodebr/kinetis-ke-module/discussions) · support@hardcode.tools
+Suggestions or questions → [open a discussion](https://github.com/hardcodebr/ke-black-pill/discussions) · support@hardcode.tools
 <!-- ⟨TODO: enable GitHub Discussions on the repo when it is published⟩ -->
