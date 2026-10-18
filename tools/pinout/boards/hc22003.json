@@ -1,0 +1,422 @@
+{
+ "_comment": "HC22003 isolated USB-C ESP Programmer. Coordinates = pixels in the source photo rotated 90° CCW (USB-C left).",
+ "layout": {
+  "mode": "callouts",
+  "photo_height": 640,
+  "photo_x": 560,
+  "width": 2400,
+  "space_above": 190
+ },
+ "out_dir": "../../../../usb-esp-programmer-isolated/docs/img",
+ "variants": {
+  "main": {
+   "title": "Isolated USB-C ESP Programmer",
+   "subtitle": "ESP8266 / ESP32 programmer · galvanic isolation · auto-reset + auto-boot · 3.3 V logic · top view",
+   "output": "pinout"
+  }
+ },
+ "photo": {
+  "file": "../photos/hc22003_top.jpg",
+  "origin": [
+   118,
+   382
+  ]
+ },
+ "groups": [
+  {
+   "side": "right",
+   "title": "Target header (1×6)",
+   "numbered": true,
+   "gap": 120,
+   "rows": [
+    {
+     "at": [
+      1312,
+      634
+     ],
+     "chips": [
+      [
+       "power",
+       "3V3"
+      ],
+      [
+       "gnd",
+       "out",
+       "outline"
+      ],
+      [
+       "power",
+       "ESP 3V3",
+       "outline"
+      ],
+      [
+       "none",
+       "optional: powers the ESP",
+       "text"
+      ]
+     ]
+    },
+    {
+     "at": [
+      1315,
+      695
+     ],
+     "chips": [
+      [
+       "ctrl",
+       "BOOT"
+      ],
+      [
+       "gnd",
+       "out",
+       "outline"
+      ],
+      [
+       "ctrl",
+       "ESP IO0",
+       "outline"
+      ],
+      [
+       "none",
+       "auto-boot",
+       "text"
+      ]
+     ]
+    },
+    {
+     "at": [
+      1318,
+      758
+     ],
+     "chips": [
+      [
+       "ctrl",
+       "RESET"
+      ],
+      [
+       "gnd",
+       "out",
+       "outline"
+      ],
+      [
+       "ctrl",
+       "ESP EN",
+       "outline"
+      ],
+      [
+       "none",
+       "auto-reset",
+       "text"
+      ]
+     ]
+    },
+    {
+     "at": [
+      1322,
+      819
+     ],
+     "chips": [
+      [
+       "uart",
+       "RX"
+      ],
+      [
+       "gnd",
+       "in",
+       "outline"
+      ],
+      [
+       "uart",
+       "ESP TX",
+       "outline"
+      ],
+      [
+       "none",
+       "data from the ESP",
+       "text"
+      ]
+     ]
+    },
+    {
+     "at": [
+      1325,
+      881
+     ],
+     "chips": [
+      [
+       "uart",
+       "TX"
+      ],
+      [
+       "gnd",
+       "out",
+       "outline"
+      ],
+      [
+       "uart",
+       "ESP RX",
+       "outline"
+      ],
+      [
+       "none",
+       "data to the ESP",
+       "text"
+      ]
+     ]
+    },
+    {
+     "at": [
+      1327,
+      945
+     ],
+     "chips": [
+      [
+       "gnd",
+       "GND"
+      ],
+      [
+       "none",
+       ""
+      ],
+      [
+       "gnd",
+       "ESP GND",
+       "outline"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "side": "left",
+   "gap": 110,
+   "pitch": 70,
+   "center_y": 880,
+   "rows": [
+    {
+     "at": [
+      210,
+      710
+     ],
+     "chips": [
+      [
+       "power",
+       "PWR LED"
+      ]
+     ]
+    },
+    {
+     "at": [
+      180,
+      850
+     ],
+     "chips": [
+      [
+       "usb",
+       "USB-C"
+      ],
+      [
+       "none",
+       "to the PC",
+       "text"
+      ]
+     ]
+    },
+    {
+     "at": [
+      365,
+      1080
+     ],
+     "chips": [
+      [
+       "uart",
+       "RX / TX LEDs"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "side": "top",
+   "gap": 60,
+   "rows": [
+    {
+     "at": [
+      880,
+      835
+     ],
+     "dx": 0,
+     "chips": [
+      [
+       "ctrl",
+       "RESET button"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "side": "bottom",
+   "gap": 60,
+   "rows": [
+    {
+     "at": [
+      880,
+      1025
+     ],
+     "chips": [
+      [
+       "ctrl",
+       "BOOT button"
+      ]
+     ]
+    },
+    {
+     "at": [
+      1102,
+      1139
+     ],
+     "chips": [
+      [
+       "ctrl",
+       "JP1"
+      ],
+      [
+       "ctrl",
+       "RESET pull-up",
+       "outline"
+      ]
+     ]
+    },
+    {
+     "at": [
+      1252,
+      1137
+     ],
+     "chips": [
+      [
+       "ctrl",
+       "JP2"
+      ],
+      [
+       "ctrl",
+       "BOOT pull-up",
+       "outline"
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "grids": [
+  {
+   "anchor": "right_of_photo",
+   "gap": 120,
+   "at_y": 1000,
+   "at": [
+    1153,
+    721
+   ],
+   "via": [
+    [
+     1153,
+     1005
+    ]
+   ],
+   "title": "2×3 header · same signals",
+   "cells": [
+    [
+     [
+      "power",
+      "3V3"
+     ],
+     [
+      "ctrl",
+      "BOOT"
+     ]
+    ],
+    [
+     [
+      "ctrl",
+      "RESET"
+     ],
+     [
+      "uart",
+      "RX"
+     ]
+    ],
+    [
+     [
+      "uart",
+      "TX"
+     ],
+     [
+      "gnd",
+      "GND"
+     ]
+    ]
+   ],
+   "note": "as seen from the top",
+   "align": "right"
+  }
+ ],
+ "legend_extra": [
+  [
+   "outline",
+   "gnd",
+   "out",
+   "Direction, seen from the programmer"
+  ],
+  [
+   "outline",
+   "uart",
+   "ESP RX",
+   "Connect to this pin on the ESP"
+  ]
+ ],
+ "info": [
+  {
+   "n": 1,
+   "class": "ctrl",
+   "title": "Auto-reset / auto-boot",
+   "text": "The programmer drives RESET and BOOT itself: esptool, Arduino IDE and ESP-IDF flash with no button presses. By hand: hold BOOT, tap RESET, release BOOT."
+  },
+  {
+   "n": 2,
+   "class": "ctrl",
+   "title": "Jumpers JP1 / JP2",
+   "text": "Cap fitted = pull-up ON (to the isolated 3V3). JP1 = RESET (EN), JP2 = BOOT (IO0). Ships with the caps removed. Fit them for a bare module powered from the programmer."
+  },
+  {
+   "n": 3,
+   "class": "power",
+   "title": "Isolation",
+   "text": "PC side and target side are galvanically isolated (data and power), rated 1500 VDC. Keep the target's GND separate from the PC's GND."
+  },
+  {
+   "n": 4,
+   "class": "uart",
+   "title": "Voltage and wiring",
+   "text": "3.3 V logic. The isolated 3V3 pin can power the ESP (up to about 150 mA). Cross TX/RX: programmer TX to ESP RX. Always connect GND."
+  }
+ ],
+ "footer": "hardcode.tools",
+ "barrier": {
+  "from": [
+   640,
+   392
+  ],
+  "to": [
+   640,
+   1209
+  ],
+  "left": "PC side (USB)",
+  "right": "isolated target side",
+  "class": "ctrl",
+  "tag_above": 128
+ },
+ "legend_names": {
+  "ctrl": "Reset / boot control",
+  "power": "Power (3.3 V)"
+ }
+}

@@ -1,0 +1,406 @@
+{
+ "_comment": "HC22002 USB-C ESP Programmer. Coordinates = pixels in the 1600 px source photo (photo crop origin given).",
+ "layout": {
+  "mode": "callouts",
+  "photo_height": 930,
+  "photo_x": 560,
+  "width": 2400,
+  "space_above": 120
+ },
+ "out_dir": "../../../../usb-esp-programmer/docs/img",
+ "variants": {
+  "main": {
+   "title": "USB-C ESP Programmer",
+   "subtitle": "ESP8266 / ESP32 programmer · auto-reset + auto-boot · 3.3 V logic · top view",
+   "output": "pinout"
+  }
+ },
+ "photo": {
+  "file": "../photos/hc22002_top.jpg",
+  "origin": [
+   118,
+   168
+  ]
+ },
+ "groups": [
+  {
+   "side": "right",
+   "title": "J3 · target header (1×6)",
+   "numbered": true,
+   "gap": 120,
+   "rows": [
+    {
+     "at": [
+      1289,
+      524
+     ],
+     "chips": [
+      [
+       "power",
+       "3V3"
+      ],
+      [
+       "gnd",
+       "out",
+       "outline"
+      ],
+      [
+       "power",
+       "ESP 3V3",
+       "outline"
+      ],
+      [
+       "none",
+       "optional: powers the ESP",
+       "text"
+      ]
+     ]
+    },
+    {
+     "at": [
+      1292,
+      599
+     ],
+     "chips": [
+      [
+       "ctrl",
+       "BOOT"
+      ],
+      [
+       "gnd",
+       "out",
+       "outline"
+      ],
+      [
+       "ctrl",
+       "ESP IO0",
+       "outline"
+      ],
+      [
+       "none",
+       "auto-boot",
+       "text"
+      ]
+     ]
+    },
+    {
+     "at": [
+      1294,
+      672
+     ],
+     "chips": [
+      [
+       "ctrl",
+       "RESET"
+      ],
+      [
+       "gnd",
+       "out",
+       "outline"
+      ],
+      [
+       "ctrl",
+       "ESP EN",
+       "outline"
+      ],
+      [
+       "none",
+       "auto-reset",
+       "text"
+      ]
+     ]
+    },
+    {
+     "at": [
+      1299,
+      754
+     ],
+     "chips": [
+      [
+       "uart",
+       "RX"
+      ],
+      [
+       "gnd",
+       "in",
+       "outline"
+      ],
+      [
+       "uart",
+       "ESP TX",
+       "outline"
+      ],
+      [
+       "none",
+       "data from the ESP",
+       "text"
+      ]
+     ]
+    },
+    {
+     "at": [
+      1302,
+      830
+     ],
+     "chips": [
+      [
+       "uart",
+       "TX"
+      ],
+      [
+       "gnd",
+       "out",
+       "outline"
+      ],
+      [
+       "uart",
+       "ESP RX",
+       "outline"
+      ],
+      [
+       "none",
+       "data to the ESP",
+       "text"
+      ]
+     ]
+    },
+    {
+     "at": [
+      1306,
+      909
+     ],
+     "chips": [
+      [
+       "gnd",
+       "GND"
+      ],
+      [
+       "none",
+       ""
+      ],
+      [
+       "gnd",
+       "ESP GND",
+       "outline"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "side": "left",
+   "gap": 110,
+   "pitch": 70,
+   "center_y": 845,
+   "rows": [
+    {
+     "at": [
+      245,
+      510
+     ],
+     "chips": [
+      [
+       "power",
+       "PWR LED"
+      ]
+     ]
+    },
+    {
+     "at": [
+      200,
+      750
+     ],
+     "chips": [
+      [
+       "usb",
+       "USB-C"
+      ],
+      [
+       "none",
+       "to the PC",
+       "text"
+      ]
+     ]
+    },
+    {
+     "at": [
+      300,
+      1068
+     ],
+     "chips": [
+      [
+       "ctrl",
+       "JP1"
+      ],
+      [
+       "ctrl",
+       "RESET pull-up",
+       "outline"
+      ]
+     ]
+    },
+    {
+     "at": [
+      300,
+      1180
+     ],
+     "chips": [
+      [
+       "ctrl",
+       "JP2"
+      ],
+      [
+       "ctrl",
+       "BOOT pull-up",
+       "outline"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "side": "top",
+   "gap": 60,
+   "rows": [
+    {
+     "at": [
+      1047,
+      468
+     ],
+     "chips": [
+      [
+       "uart",
+       "RX / TX LEDs"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "side": "bottom",
+   "gap": 60,
+   "rows": [
+    {
+     "at": [
+      605,
+      1200
+     ],
+     "chips": [
+      [
+       "ctrl",
+       "RESET button"
+      ]
+     ]
+    },
+    {
+     "at": [
+      965,
+      1200
+     ],
+     "chips": [
+      [
+       "ctrl",
+       "BOOT button"
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "grids": [
+  {
+   "anchor": "right_of_photo",
+   "gap": 120,
+   "at_y": 1010,
+   "at": [
+    1128,
+    724
+   ],
+   "via": [
+    [
+     1128,
+     1000
+    ]
+   ],
+   "title": "J2 (2×3) · same signals",
+   "cells": [
+    [
+     [
+      "power",
+      "3V3"
+     ],
+     [
+      "ctrl",
+      "BOOT"
+     ]
+    ],
+    [
+     [
+      "ctrl",
+      "RESET"
+     ],
+     [
+      "uart",
+      "RX"
+     ]
+    ],
+    [
+     [
+      "uart",
+      "TX"
+     ],
+     [
+      "gnd",
+      "GND"
+     ]
+    ]
+   ],
+   "note": "as seen from the top"
+  }
+ ],
+ "legend_extra": [
+  [
+   "outline",
+   "gnd",
+   "out",
+   "Direction, seen from the programmer"
+  ],
+  [
+   "outline",
+   "uart",
+   "ESP RX",
+   "Connect to this pin on the ESP"
+  ]
+ ],
+ "info": [
+  {
+   "n": 1,
+   "class": "ctrl",
+   "title": "Auto-reset / auto-boot",
+   "text": "The programmer drives RESET and BOOT itself: esptool, Arduino IDE and ESP-IDF flash with no button presses. By hand: hold BOOT, tap RESET, release BOOT."
+  },
+  {
+   "n": 2,
+   "class": "ctrl",
+   "title": "Jumpers JP1 / JP2",
+   "text": "Cap fitted = pull-up ON. JP1 pulls RESET (EN) high, JP2 pulls BOOT (IO0) high. Ships with both caps fitted. Remove them if the target has its own pull-ups and flashing is flaky."
+  },
+  {
+   "n": 3,
+   "class": "power",
+   "title": "Voltage",
+   "text": "Logic level 3.3 V. The 3V3 pin can power the ESP (up to about 150 mA). Leave it open if the ESP has its own supply."
+  },
+  {
+   "n": 4,
+   "class": "uart",
+   "title": "Wiring",
+   "text": "Cross the serial lines: programmer TX to ESP RX, programmer RX to ESP TX. Always connect GND."
+  }
+ ],
+ "footer": "hardcode.tools",
+ "legend_names": {
+  "ctrl": "Reset / boot control",
+  "power": "Power (3.3 V)"
+ }
+}

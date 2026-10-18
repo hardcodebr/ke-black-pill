@@ -545,6 +545,236 @@ def build(board, board_dir, vkey, pal, out_dir, cfg):
     if any(f for rs in side_rows.values() for _, alts in rs for *_, f in alts):
         entries.append(("faded", "port", "PTA5", "Only if the RESET function is off"))
     entries.append(("marker", None, None, "See the numbered note"))
+    lw, lh = draw_legend(C, F, pal, entries, band_x, y0 + 10, H, FS)
+    band_x += lw + 50
+    band_h_parts.append(lh + 10)
+
+    # info boxes
+    infos = board.get("info", [])
+    if infos:
+        hh = draw_info(C, F, pal, infos, band_x, y0 + 10, W - M - band_x, cfg.get("info_cols", 2))
+        band_h_parts.append(hh + 10)
+
+    Ht = y0 + max(band_h_parts) + 40
+    finish(C, F, board, V, cfg, W, Ht, out_dir, FS, M)
+
+
+# --------------------------------------------------------------------------- callout layout
+def build_callouts(board, board_dir, vkey, pal, out_dir, cfg):
+    """Photo in the middle, chips in rows beside / above / below it, joined to the
+    pins and parts by leader lines (for boards whose headers are not two long rows)."""
+    V = board["variants"][vkey]
+    F = Fonts(pal["fonts"])
+    C = Canvas(F, pal)
+    ink, muted = pal["ink"], pal["muted"]
+    P = cfg.get("row_pitch", 62)
+    H = cfg.get("chip_h", 46)
+    FS = H * 0.52
+    GAP = 8
+    M = 60
+    W = cfg.get("width", 2400)
+
+    def chip_w(txt, fs=FS, h=H):
+        return F.width(txt, fs) + 2 * PAD_X(h)
+
+    ph = board["photo"]
+    ox, oy = ph["origin"]
+    im = Image.open(os.path.join(board_dir, ph["file"]))
+    s = cfg["photo_height"] / im.size[1]
+    pw, phh = im.size[0] * s, im.size[1] * s
+    px = cfg.get("photo_x", (W - pw) / 2)
+
+    # title
+    y = M
+    C.text(M, y + 58, V["title"], 62, ink)
+    C.reg(M, y, M + F.width(V["title"], 62), y + 72, "title")
+    C.text(M, y + 104, V["subtitle"], 28, muted, weight="regular")
+    C.reg(M, y + 80, M + F.width(V["subtitle"], 28, "regular"), y + 112, "subtitle")
+    py = y + 130 + cfg.get("space_above", 150)
+    C.image(px, py, pw, phh, os.path.join(board_dir, ph["file"]))
+    C.reg(px, py, px + pw, py + phh, "photo", "photo")
+
+    def tc(pt):
+        return px + (pt[0] - ox) * s, py + (pt[1] - oy) * s
+
+    def lead(pts):
+        C.line(pts, "#FFFFFF", 7)
+        C.line(pts, ink, 2.5)
+        C.circle(pts[0][0], pts[0][1], 6.5, ink, stroke="#FFFFFF", sw=2.5)
+
+    def chip_spec(c):
+        cls, txt = c[0], c[1]
+        style = c[2] if len(c) > 2 else ""
+        return cls, txt, style
+
+    def draw_chip(x0, yc, w, c, name, h=H, fs=FS):
+        cls, txt, style = chip_spec(c)
+        if style != "text" and (cls == "none" or not txt):
+            return
+        if style == "text":
+            C.text(x0, yc + F.cap(fs * 0.95) / 2, txt, fs * 0.95, muted, weight="regular")
+            C.reg(x0, yc - h / 2, x0 + F.width(txt, fs * 0.95, "regular"), yc + h / 2, name)
+            return
+        C.chip(x0, yc, w, h, cls, txt, fs, name=name, outline=(style == "outline"))
+
+    bottom_extent = py + phh
+    top_extent = py
+    right_bottom = py
+    for gi, g in enumerate(board["groups"]):
+        side = g["side"]
+        gp = g.get("pitch", P)
+        if side in ("left", "right"):
+            sign = 1 if side == "right" else -1
+            edge = px + pw if side == "right" else px
+            rows = g["rows"]
+            ncol = max(len(r["chips"]) for r in rows)
+            colw = []
+            for k in range(ncol):
+                ws = []
+                for r in rows:
+                    if k < len(r["chips"]):
+                        cls, txt, style = chip_spec(r["chips"][k])
+                        ws.append(F.width(txt, FS * 0.95, "regular") if style == "text" else chip_w(txt))
+                colw.append(max(ws + [0]))
+            gap = g.get("gap", 110)
+            x_start = edge + sign * gap
+            if "center_y" in g:
+                cy = tc((0, g["center_y"]))[1]
+            else:
+                cy = sum(tc(r["at"])[1] for r in rows) / len(rows)
+            y0r = cy - (len(rows) - 1) * gp / 2
+            numbered = g.get("numbered", False)
+            NUM_W = F.width("20", FS) + 10 if numbered else 0
+            for ri, r in enumerate(rows):
+                yr = y0r + ri * gp
+                ax, ay = tc(r["at"])
+                pts = [(ax, ay)] + [tc(v) for v in r.get("via", [])]
+                lx, ly = pts[-1]
+                e1 = edge + sign * 22
+                if (lx - e1) * sign < 0:
+                    pts.append((e1, ly))
+                pts += [(x_start - sign * 26, yr), (x_start, yr)]
+                lead(pts)
+                x = x_start
+                if numbered:
+                    num = str(r.get("n", ri + 1))
+                    nx = x + sign * NUM_W / 2
+                    C.text(nx, yr + F.cap(FS) / 2, num, FS, muted, anchor="middle")
+                    C.reg(nx - NUM_W / 2, yr - H / 2, nx + NUM_W / 2, yr + H / 2, f"g{gi}r{ri}#")
+                    x += sign * (NUM_W + 8)
+                for k, c in enumerate(r["chips"]):
+                    w = colw[k]
+                    cls, txt, style = chip_spec(c)
+                    if style == "text" and side == "left":
+                        w = F.width(txt, FS * 0.95, "regular")
+                    x0 = x if side == "right" else x - w
+                    draw_chip(x0, yr, w if style != "text" else w, c, f"g{gi}r{ri}c{k}")
+                    x += sign * (colw[k] + GAP)
+                if side == "right":
+                    right_bottom = max(right_bottom, yr + H / 2)
+            if g.get("title"):
+                tx = x_start + (sign * (NUM_W + 8) if numbered else 0)
+                ty = y0r - H / 2 - 18
+                tw = F.width(g["title"], 28)
+                C.text(tx, ty, g["title"], 28, ink, anchor="start" if side == "right" else "end")
+                C.reg(tx - (tw if side == "left" else 0), ty - 26, tx + (tw if side == "right" else 0), ty + 6, f"g{gi} title")
+        else:  # top / bottom: one chip per item, spread horizontally, vertical leaders
+            items = g["rows"]
+            sign = 1 if side == "bottom" else -1
+            edge = py + phh if side == "bottom" else py
+            gap = g.get("gap", 70)
+            yc = edge + sign * (gap + H / 2)
+            placed = []
+            for it_ in sorted(items, key=lambda r: tc(r["at"])[0]):
+                ax, ay = tc(it_["at"])
+                ws = [chip_w(chip_spec(c)[1]) for c in it_["chips"]]
+                tot = sum(ws) + GAP * (len(ws) - 1)
+                x0 = ax - tot / 2 + it_.get("dx", 0)
+                if placed and x0 < placed[-1] + 20:
+                    x0 = placed[-1] + 20
+                placed.append(x0 + tot)
+                cx = x0 + ws[0] / 2
+                pts = [(ax, ay), (ax, edge + sign * 20), (cx, edge + sign * (gap - 14)), (cx, yc - sign * H / 2)]
+                lead(pts)
+                xx = x0
+                for k, (c, w) in enumerate(zip(it_["chips"], ws)):
+                    draw_chip(xx, yc, w, c, f"g{gi}:{k}:{chip_spec(c)[1]}")
+                    xx += w + GAP
+            if side == "bottom":
+                bottom_extent = max(bottom_extent, yc + H / 2)
+            else:
+                top_extent = min(top_extent, yc - H / 2)
+
+    # grids (2xN headers drawn as chip blocks)
+    for gi, gr in enumerate(board.get("grids", [])):
+        gx, gy = tc(gr["pos"]) if "pos" in gr else (0, 0)
+        cells = gr["cells"]
+        cw = max(chip_w(chip_spec(c)[1]) for row in cells for c in row) + 4
+        ncols = max(len(row) for row in cells)
+        bw = max(ncols * cw + (ncols - 1) * GAP + 28, F.width(gr["title"], 24) + 28)
+        bh = len(cells) * (H + GAP) - GAP + 28 + 44
+        bx = gr["x"] if "x" in gr else gx
+        by = gr["y"] if "y" in gr else gy
+        if gr.get("anchor") == "right_of_photo":
+            bx = px + pw + gr.get("gap", 110)
+            by = max(tc((0, gr["at_y"]))[1], right_bottom + 50)
+            if gr.get("align") == "right":
+                bx = W - M - bw
+        C.rect(bx, by, bw, bh, "#F5F7F8", rx=14, stroke="#CFD8DC", sw=2)
+        C.reg(bx, by, bx + bw, by + bh, f"grid{gi}", f"grid{gi}")
+        C.text(bx + 14, by + 32, gr["title"], 24, ink)
+        for ri, row in enumerate(cells):
+            for ci, c in enumerate(row):
+                cx = bx + 14 + ci * (cw + GAP)
+                cyy = by + 44 + 14 + ri * (H + GAP) + H / 2
+                C.chip(cx, cyy, cw, H, chip_spec(c)[0], chip_spec(c)[1], FS, group=f"grid{gi}")
+        ax, ay = tc(gr["at"])
+        pts = [(ax, ay)] + [tc(v) for v in gr.get("via", [])] + [(bx - 26, by + bh / 2), (bx, by + bh / 2)]
+        lead(pts)
+        if gr.get("note"):
+            C.text(bx, by + bh + 28, gr["note"], 21, muted, weight="regular")
+            C.reg(bx, by + bh + 8, bx + F.width(gr["note"], 21, "regular"), by + bh + 34, f"grid{gi} note")
+            bottom_extent = max(bottom_extent, by + bh + 34)
+        bottom_extent = max(bottom_extent, by + bh)
+
+    # isolation barrier
+    bar = board.get("barrier")
+    if bar:
+        x1, y1 = tc(bar["from"])
+        x2, y2 = tc(bar["to"])
+        C.line([(x1, y1), (x2, y2)], "#FFFFFF", 9, dash="16 10")
+        C.line([(x1, y1), (x2, y2)], pal["classes"][bar.get("class", "ctrl")]["fill"], 4, dash="16 10")
+        ytag = py - bar.get("tag_above", 32)
+        for txt, anchor, dx in ((bar["left"], "end", -14), (bar["right"], "start", 14)):
+            C.text(x1 + dx, ytag, txt, 24, shade(pal["classes"][bar.get("class", "ctrl")]["fill"]), anchor=anchor)
+            tw = F.width(txt, 24)
+            C.reg(x1 + dx - (tw if anchor == "end" else 0), ytag - 22, x1 + dx + (tw if anchor == "start" else 0), ytag + 6, f"barrier {txt}")
+        C.line([(x1, ytag + 8), (x1, y1)], pal["classes"][bar.get("class", "ctrl")]["fill"], 3)
+
+    # bottom band: legend + info boxes
+    y0 = bottom_extent + 70
+    C.line([(M, y0 - 30), (W - M, y0 - 30)], "#E0E6EA", 2)
+    used = []
+    for g in board["groups"]:
+        for r in g["rows"]:
+            for c in r["chips"]:
+                cls, txt, style = chip_spec(c)
+                if cls != "none" and style == "" and cls not in used:
+                    used.append(cls)
+    order = list(pal["classes"].keys())
+    used.sort(key=order.index)
+    names = board.get("legend_names", {})
+    entries = [("chip", c, sample_text(c), names.get(c, pal["classes"][c]["legend"])) for c in used]
+    for e in board.get("legend_extra", []):
+        entries.append(tuple(e))
+    lw, lh = draw_legend(C, F, pal, entries, M, y0 + 10, H, FS)
+    hh = draw_info(C, F, pal, board.get("info", []), M + lw + 50, y0 + 10, W - 2 * M - lw - 50, cfg.get("info_cols", 2))
+    Ht = y0 + 10 + max(lh, hh) + 40
+    finish(C, F, board, V, cfg, W, Ht, out_dir, FS, M)
+
+
+def draw_legend(C, F, pal, entries, lx0, ly0, H, FS):
+    ink = pal["ink"]
     LH = H * 0.86
     LFS = 24
     sw_chip = max(F.width(e[2], FS * 0.9) + 2 * PAD_X(LH) for e in entries if e[2]) + 4
@@ -554,7 +784,6 @@ def build(board, board_dir, vkey, pal, out_dir, cfg):
     col_txt = [max(F.width(e[3], LFS, "regular") for e in entries[c * per:(c + 1) * per]) for c in range(ncol)]
     lw = 34 * 2 + sum(sw_chip + 14 + t for t in col_txt) + 40 * (ncol - 1)
     lh = 70 + per * (LH + 12) + 20
-    lx0, ly0 = band_x, y0 + 10
     C.rect(lx0, ly0, lw, lh, "#FFFFFF", rx=14, stroke="#C9A227", sw=3, dash="12 8")
     C.text(lx0 + 34, ly0 + 46, "Legend", 28, ink)
     C.reg(lx0, ly0, lx0 + lw, ly0 + lh, "legend", "legend")
@@ -568,48 +797,48 @@ def build(board, board_dir, vkey, pal, out_dir, cfg):
             C.chip(ex + (sw_chip - 60) / 2, ey, 60, LH * 0.85, "gnd", txt, FS * 0.8, outline=True, group="legend")
         elif kind == "faded":
             C.chip(ex, ey, sw_chip, LH, cls, txt, FS * 0.9, faded=True, group="legend")
+        elif kind == "outline":
+            C.chip(ex, ey, sw_chip, LH, cls, txt, FS * 0.9, outline=True, group="legend")
         elif kind == "marker":
             marker(C, F, ex + sw_chip / 2, ey, LH * 0.40, "n", pal, group="legend")
         C.text(ex + sw_chip + 14, ey + F.cap(LFS) / 2, desc, LFS, ink, weight="regular")
-    band_x += lw + 50
-    band_h_parts.append(lh + 10)
+    return lw, lh
 
-    # info boxes
-    infos = board.get("info", [])
-    if infos:
-        icols = cfg.get("info_cols", 2)
-        avail = W - M - band_x
-        bw = (avail - 24 * (icols - 1)) / icols
-        IFS, TFS = 23, 25
-        pad = 22
-        boxes = []
-        for inf in infos:
-            lines = wrap(F, inf["text"], IFS, bw - 2 * pad - 10)
-            hgt = pad + 34 + len(lines) * IFS * 1.36 + pad - 6
-            boxes.append((inf, lines, hgt))
-        rows_ = [boxes[i:i + icols] for i in range(0, len(boxes), icols)]
-        yy = y0 + 10
-        for rw in rows_:
-            rh = max(b[2] for b in rw)
-            for k, (inf, lines, _) in enumerate(rw):
-                bx_ = band_x + k * (bw + 24)
-                col = pal["classes"][inf["class"]]["fill"]
-                C.rect(bx_, yy, bw, rh, tint(col, 0.12), rx=14)
-                C.rect(bx_, yy, 8, rh, col, rx=4)
-                C.reg(bx_, yy, bx_ + bw, yy + rh, f"info {inf['n']}", f"info {inf['n']}")
-                r = 17
-                marker(C, F, bx_ + pad + 6 + r, yy + pad + 14, r, inf["n"], pal, group=f"info {inf['n']}")
-                tx = bx_ + pad + 6 + 2 * r + 12
-                ttl = inf["title"]
-                if F.width(ttl, TFS) > bw - (tx - bx_) - pad:
-                    raise SystemExit(f"info title too long: {ttl}")
-                C.text(tx, yy + pad + 14 + F.cap(TFS) / 2, ttl, TFS, shade(col))
-                for li, ln in enumerate(lines):
-                    C.text(bx_ + pad + 10, yy + pad + 34 + 26 + li * IFS * 1.36, ln, IFS, ink, weight="regular")
-            yy += rh + 20
-        band_h_parts.append(yy - y0)
 
-    Ht = y0 + max(band_h_parts) + 40
+def draw_info(C, F, pal, infos, x0, y0, avail, icols):
+    ink = pal["ink"]
+    bw = (avail - 24 * (icols - 1)) / icols
+    IFS, TFS = 23, 25
+    pad = 22
+    boxes = []
+    for inf in infos:
+        lines = wrap(F, inf["text"], IFS, bw - 2 * pad - 10)
+        hgt = pad + 34 + len(lines) * IFS * 1.36 + pad - 6
+        boxes.append((inf, lines, hgt))
+    rows_ = [boxes[i:i + icols] for i in range(0, len(boxes), icols)]
+    yy = y0
+    for rw in rows_:
+        rh = max(b[2] for b in rw)
+        for k, (inf, lines, _) in enumerate(rw):
+            bx_ = x0 + k * (bw + 24)
+            col = pal["classes"][inf["class"]]["fill"]
+            C.rect(bx_, yy, bw, rh, tint(col, 0.12), rx=14)
+            C.rect(bx_, yy, 8, rh, col, rx=4)
+            C.reg(bx_, yy, bx_ + bw, yy + rh, f"info {inf['n']}", f"info {inf['n']}")
+            r = 17
+            marker(C, F, bx_ + pad + 6 + r, yy + pad + 14, r, inf["n"], pal, group=f"info {inf['n']}")
+            tx = bx_ + pad + 6 + 2 * r + 12
+            ttl = inf["title"]
+            if F.width(ttl, TFS) > bw - (tx - bx_) - pad:
+                raise SystemExit(f"info title too long: {ttl}")
+            C.text(tx, yy + pad + 14 + F.cap(TFS) / 2, ttl, TFS, shade(col))
+            for li, ln in enumerate(lines):
+                C.text(bx_ + pad + 10, yy + pad + 34 + 26 + li * IFS * 1.36, ln, IFS, ink, weight="regular")
+        yy += rh + 20
+    return yy - y0 - 20
+
+
+def finish(C, F, board, V, cfg, W, Ht, out_dir, FS, M):
     # footer
     C.text(W - M, Ht + 30, board.get("footer", "hardcode.tools"), 28, "#90A4AE", anchor="end")
     note = V.get("footer_note", cfg.get("footer_note", ""))
@@ -621,7 +850,8 @@ def build(board, board_dir, vkey, pal, out_dir, cfg):
     if bad:
         for a, b in bad[:40]:
             print("OVERLAP:", a, "<->", b, file=sys.stderr)
-        raise SystemExit(f"{len(bad)} overlaps")
+        if not os.environ.get("PINOUT_NOCHECK"):
+            raise SystemExit(f"{len(bad)} overlaps")
     for b in C.boxes:
         if b[0] < -0.5 or b[2] > W + 0.5:
             raise SystemExit(f"outside canvas: {b}")
@@ -634,7 +864,7 @@ def build(board, board_dir, vkey, pal, out_dir, cfg):
     target_w = cfg.get("png_width", 2400)
     cairosvg.svg2png(bytestring=svg.encode(), write_to=base + ".png", output_width=target_w,
                      output_height=int(round(Ht * target_w / W)), background_color="white")
-    print(f"{base}.png  canvas {W:.0f}x{Ht:.0f} -> {target_w} px wide; chip font {FS * target_w / W:.1f}px; slots {nslots}")
+    print(f"{os.path.normpath(base)}.png  canvas {W:.0f}x{Ht:.0f} -> {target_w} px wide; chip font {FS * target_w / W:.1f}px")
 
 
 def pin_by_ref(pins, ref):
@@ -697,7 +927,7 @@ def main():
     cfg = dict(pitch=54, bottom_height=640, info_cols=2, png_width=2400)
     cfg.update(board.get("layout", {}))
     for vk in ([a.variant] if a.variant else list(board["variants"])):
-        build(board, bdir, vk, pal, out, cfg)
+        (build_callouts if cfg.get("mode") == "callouts" else build)(board, bdir, vk, pal, out, cfg)
 
 
 if __name__ == "__main__":

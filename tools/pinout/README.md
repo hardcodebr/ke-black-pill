@@ -21,5 +21,9 @@ to 78 %, else it stops), and every placed box is checked for overlaps — it sto
 error instead of drawing a clash. Each function class gets a fixed column where possible
 (capped by `max_slots`; a clashing chip moves to the nearest free column on that row).
 
-Other boards: write `boards/<board>.json` with inline `"pins"` instead of a CSV
-(see the ESP programmer repos, which call this tool with their own board file).
+Two layouts:
+- `rows` (default) — two long pin rows beside the photo (KE Black Pill, `boards/hc26060.json`).
+- `callouts` (`"layout": {"mode": "callouts"}`) — chips in rows beside / above / below the photo,
+  joined by leader lines; for boards with short headers, jumpers and buttons:
+  `boards/hc22002.json` (USB-C ESP Programmer) and `boards/hc22003.json` (isolated version).
+  Their `out_dir` points at the sibling repos (`usb-esp-programmer/docs/img`, `usb-esp-programmer-isolated/docs/img`).
