@@ -1,6 +1,5 @@
 # KE Black Pill — NXP Kinetis KE02 / KE04 development module (HC26060)
 
-<!-- ⟨TODO: add the product photo docs/img/hero.jpg (see docs/img/README.md)⟩ -->
 ![product](docs/img/hero.jpg)
 
 A small, breadboard-friendly development module for the **NXP Kinetis E** series, in the
