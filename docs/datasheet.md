@@ -25,6 +25,13 @@
 | **Toolchain** | MCUXpresso IDE + SDK, Arm GNU Toolchain; flash with J-Link, OpenOCD, pyOCD ([Quick-Start](index.md#4-flash-over-swd)) |
 | **Compliance** | Development module for lab use — no CE/FCC certification |
 
+## Pinout graphic
+
+<img src="img/pinout_ke02.png" width="800" alt="Pinout — KE Black Pill (KE02)">
+
+<img src="img/pinout_ke04.png" width="800" alt="Pinout — KE Black Pill (KE04)">
+
+
 ## KE02 vs KE04
 
 | | **HC26060-KE02** | **HC26060-KE04** |
