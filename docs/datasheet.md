@@ -1,4 +1,4 @@
-# Datasheet — Kinetis KE02 / KE04 Module (HC26060)
+# Datasheet — KE Black Pill (HC26060)
 
 > 🏠 [HardCode — all products](https://github.com/hardcodebr) · 🛒 [Shop](https://lectronz.com/stores/hardcode-electronics) · 🌐 [hardcode.com.br](https://hardcode.com.br)
 
