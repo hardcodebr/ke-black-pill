@@ -60,4 +60,4 @@ The 4-pin SWD header follows the Black Pill layout (3V3, DIO, CLK, GND). RESET i
 **Is it certified?**
 It is a development module for lab use. No CE/FCC certification.
 
-More help: support@hardcode.com.br
+More help: support@hardcode.tools
