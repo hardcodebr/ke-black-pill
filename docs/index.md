@@ -1,6 +1,6 @@
 # Quick-Start — KE Black Pill (HC26060)
 
-> 🏠 [HardCode — all products](https://github.com/hardcodebr) · 🛒 [Shop](https://lectronz.com/stores/hardcode-electronics) · 🌐 [hardcode.com.br](https://hardcode.com.br)
+> 🏠 [HardCode — all products](https://github.com/hardcodebr) · 🛒 [Shop](https://lectronz.com/stores/hardcode-electronics) · 🌐 [hardcode.tools](https://hardcode.tools)
 
 From the bag to a running program in four steps. You need a USB-C cable and an **SWD probe**
 (the module has no built-in debugger).

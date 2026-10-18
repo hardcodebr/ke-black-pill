@@ -1,6 +1,6 @@
 # Pinout — KE Black Pill (HC26060)
 
-> 🏠 [HardCode — all products](https://github.com/hardcodebr) · 🛒 [Shop](https://lectronz.com/stores/hardcode-electronics) · 🌐 [hardcode.com.br](https://hardcode.com.br)
+> 🏠 [HardCode — all products](https://github.com/hardcodebr) · 🛒 [Shop](https://lectronz.com/stores/hardcode-electronics) · 🌐 [hardcode.tools](https://hardcode.tools)
 
 <!-- ⟨TODO: pinout graphic docs/img/pinout.png (Waveshare style, separate KE02 / KE04 versions)⟩ -->
 ![pinout](img/pinout.png)

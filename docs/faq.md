@@ -1,6 +1,6 @@
 # FAQ / Troubleshooting — KE Black Pill (HC26060)
 
-> 🏠 [HardCode — all products](https://github.com/hardcodebr) · 🛒 [Shop](https://lectronz.com/stores/hardcode-electronics) · 🌐 [hardcode.com.br](https://hardcode.com.br)
+> 🏠 [HardCode — all products](https://github.com/hardcodebr) · 🛒 [Shop](https://lectronz.com/stores/hardcode-electronics) · 🌐 [hardcode.tools](https://hardcode.tools)
 
 **No serial port appears.**
 Use a USB-C cable **with data lines** — charge-only cables light the power LED but give no port.
