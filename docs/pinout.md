@@ -2,8 +2,13 @@
 
 > 🏠 [HardCode — all products](https://github.com/hardcodebr) · 🛒 [Shop](https://lectronz.com/stores/hardcode-electronics) · 🌐 [hardcode.tools](https://hardcode.tools)
 
-<!-- ⟨TODO: pinout graphic docs/img/pinout.png (Waveshare style, separate KE02 / KE04 versions)⟩ -->
-![pinout](img/pinout.png)
+<img src="img/pinout_ke02.png" width="800" alt="Pinout KE Black Pill — KE02">
+
+*KE02 version: for boards with the Kinetis KE02 MCU.*
+
+<img src="img/pinout_ke04.png" width="800" alt="Pinout KE Black Pill — KE04">
+
+*KE04 version: same board and pins, but the KE04 has other KBI numbers and extra functions (I2C1, PWT, TCLK).*
 
 <img src="img/top.jpg" width="600" alt="Top view">
 

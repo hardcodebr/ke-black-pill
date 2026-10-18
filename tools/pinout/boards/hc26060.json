@@ -1,0 +1,236 @@
+{
+ "_comment": "HC26060 KE Black Pill. Hole coordinates are pixels in the photos/ crops (measured from the cleaned 1600 px photos, 2026-10-18).",
+ "pin_table": "../HC26060_pin_table.csv",
+ "variants": {
+  "ke02": {
+   "title": "KE Black Pill — KE02",
+   "family": "Kinetis KE02",
+   "alt_column": "ke02_alternates",
+   "subtitle": "Kinetis KE02 · Arm Cortex-M0+ · 2.7–5.5 V supply · top view, pin 1 at the USB-C end",
+   "output": "pinout_ke02"
+  },
+  "ke04": {
+   "title": "KE Black Pill — KE04",
+   "family": "Kinetis KE04",
+   "alt_column": "ke04_alternates",
+   "subtitle": "Kinetis KE04 · Arm Cortex-M0+ · 2.7–5.5 V supply · top view, pin 1 at the USB-C end",
+   "output": "pinout_ke04",
+   "footer_note": "I2C0_4W_SCL / _SDA = I2C0 4-wire mode outputs (I2C0_4WSCLOUT / I2C0_4WSDAOUT)."
+  }
+ },
+ "top_photo": {
+  "file": "../photos/hc26060_top.jpg",
+  "board_box": [
+   10,
+   10,
+   570,
+   1354
+  ],
+  "rows": {
+   "J4": {
+    "side": "left",
+    "p1": [
+     116.6,
+     1300.1
+    ],
+    "pN": [
+     122.6,
+     89.0
+    ],
+    "n": 20
+   },
+   "J3": {
+    "side": "right",
+    "p1": [
+     499.1,
+     1299.6
+    ],
+    "pN": [
+     500.6,
+     92.6
+    ],
+    "n": 20
+   }
+  },
+  "top_header": {
+   "name": "J1",
+   "label": "SWD",
+   "holes": [
+    [
+     218.3,
+     87
+    ],
+    [
+     281.6,
+     87
+    ],
+    [
+     344.4,
+     87
+    ],
+    [
+     406.9,
+     87
+    ]
+   ],
+   "pins": [
+    "J1.1",
+    "J1.2",
+    "J1.3",
+    "J1.4"
+   ]
+  },
+  "usb": {
+   "at": [
+    310,
+    1300
+   ],
+   "label": "USB-C",
+   "note": "5 V in · USB-serial (UART0)"
+  },
+  "markers": [
+   {
+    "n": 1,
+    "at": [
+     395,
+     182
+    ],
+    "offset": [
+     34,
+     -6
+    ]
+   },
+   {
+    "n": 2,
+    "at": [
+     238,
+     282
+    ],
+    "offset": [
+     -44,
+     0
+    ]
+   },
+   {
+    "n": 3,
+    "at": [
+     375,
+     282
+    ],
+    "offset": [
+     44,
+     0
+    ]
+   }
+  ]
+ },
+ "bottom_photo": {
+  "file": "../photos/hc26060_bottom.jpg",
+  "board_box": [
+   10,
+   10,
+   539,
+   1354
+  ],
+  "header": {
+   "name": "J1",
+   "label": "SWD header J1 (bottom view)",
+   "holes": [
+    [
+     177.3,
+     87
+    ],
+    [
+     243.2,
+     87
+    ],
+    [
+     307.6,
+     87
+    ],
+    [
+     372.2,
+     87
+    ]
+   ],
+   "pins": [
+    "J1.4",
+    "J1.3",
+    "J1.2",
+    "J1.1"
+   ]
+  }
+ },
+ "info": [
+  {
+   "n": 1,
+   "class": "port",
+   "title": "User LED · A6",
+   "text": "PTA6 drives a red LED, active high: drive it high to turn the LED on."
+  },
+  {
+   "n": 2,
+   "class": "kbi",
+   "title": "USER button · D4",
+   "text": "Connects PTD4 to GND when pressed (active low). No pull-up on the board: enable the internal pull-up."
+  },
+  {
+   "n": 3,
+   "class": "ctrl",
+   "title": "RESET button · RST",
+   "text": "J4 pin 3 (PTA5). Pull-up on the board. Connect the probe's RESET here: it is not on J1."
+  },
+  {
+   "n": 4,
+   "class": "ctrl",
+   "title": "NMI pin · B4",
+   "text": "J3 pin 7 (PTB4) is the NMI input, pulled up on the board. Do not hold it low at power-up or reset."
+  },
+  {
+   "n": 5,
+   "class": "uart",
+   "title": "UART0 = USB-serial",
+   "text": "B1 (TX) and B0 (RX) also go to the on-board USB-serial. Use one serial source at a time."
+  },
+  {
+   "n": 6,
+   "class": "power",
+   "title": "Power",
+   "text": "All 3V3 pins are one rail, the MCU supply: about 3 V out from USB, or 2.7–5.5 V in. 5V = USB 5 V, not regulated. I/O level = supply."
+  }
+ ],
+ "pin_notes": {
+  "PTA6": [
+   1
+  ],
+  "PTD4": [
+   2
+  ],
+  "PTA5": [
+   3
+  ],
+  "PTB4": [
+   4
+  ],
+  "PTB0": [
+   5
+  ],
+  "PTB1": [
+   5
+  ]
+ },
+ "faded_note": "RST pin: other functions only if the RESET function is disabled in firmware",
+ "footer": "hardcode.tools",
+ "aliases": {
+  "I2C0_4WSCLOUT": "I2C0_4W_SCL",
+  "I2C0_4WSDAOUT": "I2C0_4W_SDA"
+ },
+ "layout": {
+  "pitch": 54,
+  "max_slots": 5,
+  "max_chip": 140,
+  "bottom_height": 560,
+  "min_width": 2420
+ },
+ "out_dir": "../../../docs/img"
+}

@@ -1,0 +1,42 @@
+{
+  "_comment": "HardCode pinout palette: one colour per function class, shared by every HardCode board graphic. Change a colour here and every board picks it up.",
+  "fonts": {
+    "family": "Noto Sans",
+    "regular": "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf",
+    "bold": "/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf",
+    "italic": "/usr/share/fonts/truetype/noto/NotoSans-Italic.ttf"
+  },
+  "ink": "#263238",
+  "muted": "#607D8B",
+  "line": "#B0BEC5",
+  "classes": {
+    "power": {"fill": "#E53935", "text": "#FFFFFF", "legend": "Power"},
+    "gnd":   {"fill": "#37474F", "text": "#FFFFFF", "legend": "Ground"},
+    "ctrl":  {"fill": "#EF6C00", "text": "#FFFFFF", "legend": "Reset / boot / NMI / debug"},
+    "port":  {"fill": "#2E7D32", "text": "#FFFFFF", "legend": "Port pin (GPIO)"},
+    "uart":  {"fill": "#7B1FA2", "text": "#FFFFFF", "legend": "UART (serial)"},
+    "spi":   {"fill": "#D81B60", "text": "#FFFFFF", "legend": "SPI"},
+    "i2c":   {"fill": "#1E88E5", "text": "#FFFFFF", "legend": "I2C"},
+    "pwm":   {"fill": "#00897B", "text": "#FFFFFF", "legend": "Timer / PWM (FTM)"},
+    "adc":   {"fill": "#FBC02D", "text": "#3E2A00", "legend": "Analog input (ADC)"},
+    "acmp":  {"fill": "#8D6E63", "text": "#FFFFFF", "legend": "Analog comparator"},
+    "kbi":   {"fill": "#5C6BC0", "text": "#FFFFFF", "legend": "Pin interrupt (KBI)"},
+    "sys":   {"fill": "#78909C", "text": "#FFFFFF", "legend": "Clock / misc"},
+    "usb":   {"fill": "#455A64", "text": "#FFFFFF", "legend": "USB"}
+  },
+  "rules": [
+    ["^(RESET|NMI|SWD_.*|BOOT|EN)$", "ctrl"],
+    ["^KBI", "kbi"],
+    ["^UART|^U[0-9]?(RX|TX)", "uart"],
+    ["^SPI", "spi"],
+    ["^I2C", "i2c"],
+    ["^FTM[0-9]_(CH|FLT)", "pwm"],
+    ["^ADC", "adc"],
+    ["^ACMP", "acmp"],
+    [".*", "sys"]
+  ],
+  "flags": {
+    "hd": {"label": "HD", "legend": "High-drive output"},
+    "od": {"label": "OD", "legend": "True open-drain output"}
+  }
+}

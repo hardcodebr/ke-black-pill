@@ -1,0 +1,48 @@
+# HC26060 rev A pin table (DRAFT 2026-10-16). Source of truth for the pinout graphic + datasheet tables.
+# Board nets: netlist exported from the PC master HC26060.kicad_sch (2026-10-09 08:06) with kicad-cli. Alternates: NXP KE02 DS MKE02P64M40SF0 Rev 6 sec 8 (44-LQFP column) and KE04 DS MKE04P80M48SF0 Rev 6 sec 8.1.
+# type: power | gnd | gpio | reset | swd ; board_use = what the board itself connects to the pin; hd = high-drive output pin; od = true open-drain output
+header,pin,silk,port,lqfp44_pin,type,ke02_alternates,ke04_alternates,board_use,notes
+J4,1,3V3,VDD,5/28,power,,,"MCU supply rail",output ~3.0-3.1 V from USB (to measure) or input 2.7-5.5 V
+J4,2,G,GND,,gnd,,,,
+J4,3,RST,PTA5,43,reset,"IRQ;FTM0_CLK;RESET","KBI0_P5;IRQ;TCLK0;RESET","RESET button SW1 + pull-up","probe RESET goes here (not on J1)"
+J4,4,H2,PTH2,4,gpio,"BUSOUT;FTM1_CH0","KBI1_P26;BUSOUT;FTM1_CH0",,
+J4,5,E7,PTE7,3,gpio,"FTM2_CLK;FTM1_CH1","KBI1_P7;TCLK2;FTM1_CH1",,
+J4,6,D0,PTD0,2,gpio,"KBI1_P0;FTM2_CH2;SPI1_SCK","KBI0_P24;FTM2_CH2;SPI1_SCK",,hd
+J4,7,D1,PTD1,1,gpio,"KBI1_P1;FTM2_CH3;SPI1_MOSI","KBI0_P25;FTM2_CH3;SPI1_MOSI",,hd
+J4,8,C5,PTC5,41,gpio,"FTM1_CH1;RTCO","KBI0_P21;FTM1_CH1;RTC_CLKOUT",,
+J4,9,E0,PTE0,40,gpio,"SPI0_SCK;FTM1_CLK","KBI1_P0;SPI0_SCK;TCLK1;I2C1_SDA",,hd
+J4,10,E1,PTE1,39,gpio,"SPI0_MOSI","KBI1_P1;SPI0_MOSI;I2C1_SCL",,hd
+J4,11,E2,PTE2,38,gpio,"SPI0_MISO","KBI1_P2;SPI0_MISO;PWT_IN0",,
+J4,12,C6,PTC6,37,gpio,"UART1_RX","KBI0_P22;UART1_RX",,
+J4,13,C7,PTC7,36,gpio,"UART1_TX","KBI0_P23;UART1_TX",,"example firmware also prints here"
+J4,14,A0,PTA0,35,gpio,"KBI0_P0;FTM0_CH0;ACMP0_IN0;ADC0_SE0","KBI0_P0;FTM0_CH0;I2C0_4WSCLOUT;ACMP0_IN0;ADC0_SE0",,
+J4,15,A1,PTA1,34,gpio,"KBI0_P1;FTM0_CH1;ACMP0_IN1;ADC0_SE1","KBI0_P1;FTM0_CH1;I2C0_4WSDAOUT;ACMP0_IN1;ADC0_SE1",,
+J4,16,A2,PTA2,33,gpio,"KBI0_P2;UART0_RX;I2C0_SDA","KBI0_P2;UART0_RX;I2C0_SDA",,od
+J4,17,A3,PTA3,32,gpio,"KBI0_P3;UART0_TX;I2C0_SCL","KBI0_P3;UART0_TX;I2C0_SCL",,od
+J4,18,D2,PTD2,31,gpio,"KBI1_P2;SPI1_MISO","KBI0_P26;SPI1_MISO",,
+J4,19,D3,PTD3,30,gpio,"KBI1_P3;SPI1_PCS0","KBI0_P27;SPI1_PCS",,
+J4,20,D4,PTD4,29,gpio,"KBI1_P4","KBI0_P28","USER button SW2 to GND","enable internal pull-up"
+J3,1,5V,+5V,,power,,,"USB 5 V after diode / 5 V input to the 3.3 V regulator","not regulated"
+J3,2,G,GND,,gnd,,,,
+J3,3,3V3,VDD,5/28,power,,,"MCU supply rail",same as J4.1
+J3,4,B7,PTB7,9,gpio,"I2C0_SCL;EXTAL","KBI0_P15;I2C0_SCL;EXTAL",,"crystal pin, no crystal fitted"
+J3,5,B6,PTB6,10,gpio,"I2C0_SDA;XTAL","KBI0_P14;I2C0_SDA;XTAL",,"crystal pin, no crystal fitted"
+J3,6,B5,PTB5,12,gpio,"FTM2_CH5;SPI0_PCS0;ACMP1_OUT","KBI0_P13;FTM2_CH5;SPI0_PCS;ACMP1_OUT",,hd
+J3,7,B4,PTB4,13,gpio,"FTM2_CH4;SPI0_MISO;NMI;ACMP1_IN2","KBI0_P12;FTM2_CH4;SPI0_MISO;ACMP1_IN2;NMI","NMI pull-up","hd; do not hold low at power-up"
+J3,8,C3,PTC3,14,gpio,"FTM2_CH3;ADC0_SE11","KBI0_P19;FTM2_CH3;ADC0_SE11",,
+J3,9,C2,PTC2,15,gpio,"FTM2_CH2;ADC0_SE10","KBI0_P18;FTM2_CH2;ADC0_SE10",,
+J3,10,D7,PTD7,16,gpio,"KBI1_P7;UART2_TX","KBI0_P31;UART2_TX",,
+J3,11,D6,PTD6,17,gpio,"KBI1_P6;UART2_RX","KBI0_P30;UART2_RX",,
+J3,12,D5,PTD5,18,gpio,"KBI1_P5","KBI0_P29;PWT_IN0",,
+J3,13,C1,PTC1,19,gpio,"FTM2_CH1;ADC0_SE9","KBI0_P17;FTM2_CH1;ADC0_SE9",,
+J3,14,C0,PTC0,20,gpio,"FTM2_CH0;ADC0_SE8","KBI0_P16;FTM2_CH0;ADC0_SE8",,
+J3,15,B3,PTB3,21,gpio,"KBI0_P7;SPI0_MOSI;FTM0_CH1;ADC0_SE7","KBI0_P11;SPI0_MOSI;FTM0_CH1;ADC0_SE7",,
+J3,16,B2,PTB2,22,gpio,"KBI0_P6;SPI0_SCK;FTM0_CH0;ADC0_SE6","KBI0_P10;SPI0_SCK;FTM0_CH0;ADC0_SE6",,
+J3,17,B1,PTB1,23,gpio,"KBI0_P5;UART0_TX;ADC0_SE5","KBI0_P9;UART0_TX;ADC0_SE5","to on-board USB-serial RX (series resistor)",
+J3,18,B0,PTB0,24,gpio,"KBI0_P4;UART0_RX;ADC0_SE4","KBI0_P8;UART0_RX;PWT_IN1;ADC0_SE4","from on-board USB-serial TX (series resistor)","header source wins over USB-serial; use one at a time"
+J3,19,A7,PTA7,25,gpio,"FTM2_FLT2;ACMP1_IN1;ADC0_SE3","KBI0_P7;FTM2_FLT2;ACMP1_IN1;ADC0_SE3",,
+J3,20,A6,PTA6,26,gpio,"FTM2_FLT1;ACMP1_IN0;ADC0_SE2","KBI0_P6;FTM2_FLT1;ACMP1_IN0;ADC0_SE2","user LED (red), active high",
+J1,1,3V3,VDD,,power,,,"SWD target supply / reference",
+J1,2,DIO,PTA4,44,swd,"ACMP0_OUT;SWD_DIO","KBI0_P4;ACMP0_OUT;SWD_DIO","SWDIO pull-up",
+J1,3,CLK,PTC4,42,swd,"RTCO;FTM1_CH0;ACMP0_IN2;SWD_CLK","KBI0_P20;RTC_CLKOUT;FTM1_CH0;ACMP0_IN2;SWD_CLK","no pull-down fitted",
+J1,4,GND,GND,,gnd,,,,
