@@ -1,7 +1,6 @@
 # KE Black Pill — NXP Kinetis KE02 / KE04 development module (HC26060)
 
-<img src="docs/img/hero.jpg" width="420" alt="KE Black Pill (KE02)">
-
+<p align="center"><img src="docs/img/hero.jpg" width="420" alt="KE Black Pill (KE02)"></p>
 A small, breadboard-friendly development module for the **NXP Kinetis E** series, in the
 popular **Black Pill size**. Choose the **KE02** (40 MHz) or the **KE04** (48 MHz) — both an
 Arm Cortex-M0+ with 64 KB flash that runs from **2.7 V to 5.5 V**, so you can work at **3.3 V or
