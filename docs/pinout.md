@@ -100,8 +100,6 @@ serial source at a time. An adapter on the header pins overrides the USB-serial.
 
 - **RESET is not on J1** — it is on **J4 pin 3 (RST)**.
 - **Check the labels before you connect a probe.** Use this table, not a cable made for another board.
-  ⟨CONFIRM: if the rev A order turns out to differ from the usual Black Pill SWD order, add: "The
-  SWD order on rev A differs from Black Pill boards."⟩
 - There is no SWCLK pull-down on the board. Most probes drive SWCLK actively, so this is fine.
   If your probe needs one (NXP recommends it), add a pull-down from SWCLK to GND on your side.
 
@@ -136,6 +134,6 @@ GPIOA->PDDR &= ~(1u << 28);        /* PTD4 as input (GPIOA covers PTA..PTD) */
 bool pressed = !(GPIOA->PDIR & (1u << 28));   /* 0 = pressed */
 ```
 
-⟨CONFIRM⟩ Check the register and bit names against the reference manual / the SDK header for your part (MKE02Z64 / MKE04Z64) before use.
+Register and bit names follow the KE02/KE04 reference manuals; check them against the SDK header for your exact part (MKE02Z64 / MKE04Z64) before use.
 
 The RESET button does not need this: the board has a pull-up resistor on RESET, and the MCU's reset pin has an internal pull-up as well.

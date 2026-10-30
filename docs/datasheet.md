@@ -2,7 +2,7 @@
 
 > 🏠 [HardCode — all products](https://github.com/hardcodebr) · 🛒 [Shop](https://lectronz.com/stores/hardcode-electronics) · 🌐 [hardcode.tools](https://hardcode.tools)
 
-*Rev A (first batch). Items marked ⟨CONFIRM⟩ are not measured yet.*
+*Rev A (first batch). Values marked approx. / design value are design figures, not yet measured on production units.*
 
 | | Specification |
 |---|---|
@@ -55,7 +55,7 @@ The board has three power points, joined by diodes so they don't back-feed each 
 
 | Source | Where | What happens |
 |---|---|---|
-| **USB-C** 5 V | USB-C | Feeds the 3.3 V regulator and the USB-serial. MCU supply ≈ 3.0–3.1 V ⟨CONFIRM: measure⟩. The USB 5 V also appears on the **5V** pin. |
+| **USB-C** 5 V | USB-C | Feeds the 3.3 V regulator and the USB-serial. MCU supply ≈ 3.0–3.1 V (design value, after a protection diode). The USB 5 V also appears on the **5V** pin. |
 | **5 V in** | **5V** pin (J3.1) | Feeds the 3.3 V regulator; a diode stops it from reaching your USB port. |
 | **2.7–5.5 V in** | any **3V3** pin (J3.3, J4.1, J1.1) | Powers the MCU **directly** — use this for **5 V operation**, or to power the board from your SWD probe. A diode stops it from back-feeding the regulator. |
 
@@ -73,8 +73,8 @@ The board has three power points, joined by diodes so they don't back-feed each 
 | Open-drain pins | `A2`, `A3` (PTA2/PTA3, I2C0) — true open-drain outputs |
 | High-drive pins | `D0`, `D1`, `E0`, `E1`, `B4`, `B5` |
 | USB-serial | Designed for ~3 V operation; at 5 V use a 5 V serial adapter on a header UART |
-| Current available to your circuit (from USB) | ⟨CONFIRM: measure under load⟩ |
-| Board current, idle | ⟨CONFIRM: measure⟩ |
+| Current available to your circuit (from USB) | up to about 100 mA (design value from the regulator rating; not measured) |
+| Board current, idle | not measured yet |
 | MCU temperature rating | −40 to 105 °C (NXP); board not characterised |
 
 ## Mechanical
@@ -86,13 +86,13 @@ The board has three power points, joined by diodes so they don't back-feed each 
 | Pin 1 | at the **USB-C end** of both long headers |
 | SWD header | 1x4 right-angle at the far short edge; the plastic body sits about 1 mm past the board edge |
 | USB-C | centred on the near short edge |
-| Height | ⟨CONFIRM: measure, with and without headers⟩ |
-| Weight | ⟨CONFIRM: weigh⟩ |
+| Height | ≈ 4 mm without headers (USB-C is the tallest part); ≈ 12 mm with headers soldered, pins included (approx.) |
+| Weight | ≈ 5 g board, ≈ 9 g with headers (approx.) |
 | Mounting holes | none |
-| Breadboard | Straddles the centre gap of a standard breadboard, like a Black Pill ⟨CONFIRM: count the free holes per side on a real breadboard⟩ |
+| Breadboard | Straddles the centre gap of a standard breadboard, like a Black Pill |
 
 The outline and power-pin positions follow the common Black Pill layout. The signal pins differ
-(different MCU). ⟨CONFIRM: test one Black Pill carrier board before claiming carrier compatibility⟩
+(different MCU). Not tested with a carrier board.
 
 ## Ordering information
 

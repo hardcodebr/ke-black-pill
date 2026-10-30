@@ -11,24 +11,21 @@ From the bag to a running program in four steps. You need a USB-C cable and an *
 - Plug in **USB-C**. The **green power LED** turns on.
 - From USB the MCU runs at about 3 V (on-board regulator). To run it at **5 V**, feed 2.7–5.5 V
   into a **3V3** pin instead — see [Datasheet → Power](datasheet.md#power).
-  <!-- ⟨CONFIRM: measure VDD from USB on 2 boards (expected 3.0–3.1 V)⟩ -->
 
 ## 2. Open the serial console
 - The USB-C port carries an **on-board USB-serial**, wired to the MCU's **UART0**
   (pins `B1` = TX, `B0` = RX).
 - A new serial port appears: **COMx** on Windows, **/dev/ttyUSB\*** on Linux, **/dev/cu.\*** on macOS.
-  Current Windows, macOS and Linux versions usually include the driver. If no port appears,
-  install the USB-to-serial driver for your system.
-  <!-- ⟨CONFIRM: test the driver on a clean Windows PC and on macOS⟩ -->
+  Current Windows, macOS and Linux versions usually include the driver (Linux checked by HardCode;
+  Windows and macOS not yet tested by us). If no port appears, install the USB-to-serial driver for your system.
 - Open a terminal at your firmware's baud rate. Our examples use **115200 8N1**.
 - Use **one serial source at a time** on UART0: either the USB-serial, or your own adapter on the
   `B1`/`B0` header pins — not both.
 
 ## 3. Your first program — blink + serial echo
-The example firmware ⟨TODO: link to the examples folder / release .bin⟩:
+The example firmware is in [`examples/`](../examples/) — sources, build scripts and ready `.bin` files (load at 0x00000000):
 - **Blink** — toggles the red **user LED** on `A6` (PTA6, active high) and prints a counter on UART0.
 - **Serial echo** — sends back every character you type in the console (UART0 ↔ USB-serial).
-  ⟨TODO: example to be written⟩
 - Press **USER** (`D4`, PTD4 to GND) and **RESET** to see the messages change.
 
 Writing your own? Three things matter on Kinetis E:
@@ -60,10 +57,9 @@ Always select the **exact device** (MKE02Z64 or MKE04Z64) in your tool.
 
 | Probe / tool | How | Status |
 |---|---|---|
-| **HardCode Flash Station** | Kinetis KE job, J1 + RST wiring | **In development** ⟨CONFIRM: change after the station bench acceptance⟩ |
-| **SEGGER J-Link** | Device `MKE02Z64xxx4` or `MKE04Z64xxx4` in J-Flash, J-Link Commander or your IDE ([SEGGER device list](https://www.segger.com/supported-devices/nxp/kinetis-ke/)) | Listed by SEGGER; not tested by HardCode yet ⟨CONFIRM⟩ |
-| **CMSIS-DAP probe + OpenOCD** | `-f interface/cmsis-dap.cfg -f target/ke0x.cfg` (OpenOCD's Kinetis KE0x target + `kinetis_ke` flash driver) | Not tested by HardCode yet ⟨CONFIRM⟩ |
-| **CMSIS-DAP probe + pyOCD** | No built-in KE02/KE04 target — install NXP's device pack first: `pyocd pack install mke04z64vld4` (or `mke02z64vld4`), then `pyocd flash -t mke04z64vld4 app.bin` ⟨CONFIRM: exact target name from `pyocd pack find`⟩ | Not tested by HardCode yet ⟨CONFIRM⟩ |
+| **SEGGER J-Link** | Device `MKE02Z64xxx4` or `MKE04Z64xxx4` in J-Flash, J-Link Commander or your IDE ([SEGGER device list](https://www.segger.com/supported-devices/nxp/kinetis-ke/)) | Tested by HardCode with a J-Link driven by OpenOCD (`interface/jlink.cfg` + `target/ke0x.cfg`); SEGGER's own J-Flash not tested |
+| **CMSIS-DAP probe + OpenOCD** | `-f interface/cmsis-dap.cfg -f target/ke0x.cfg` (OpenOCD's Kinetis KE0x target + `kinetis_ke` flash driver) | Tested by HardCode (DAPLink-class probe, OpenOCD 0.12). Some clones are not auto-detected: add `-c "cmsis_dap_vid_pid 0x<vid> 0x<pid>"` with your probe's USB ids |
+| **CMSIS-DAP probe + pyOCD** | No built-in KE02/KE04 target — install NXP's device pack first: `pyocd pack install mke04z64vld4` (or `mke02z64vld4`), then `pyocd flash -t mke04z64vld4 app.bin` (check the exact name with `pyocd pack find ke0`) | Not tested by HardCode |
 
 **Toolchains**
 - **NXP MCUXpresso IDE + MCUXpresso SDK** — the SDK and device packs cover KE02 and KE04 (startup
@@ -85,7 +81,7 @@ Read this before you flash your own images.
   own image or linker script, check it.
 - If the chip becomes **secured**, a debugger can no longer read or write the flash. A **mass erase**
   over SWD (J-Link Commander `unlock Kinetis`, OpenOCD `kinetis_ke mdm mass_erase`, pyOCD `erase --chip`) unlocks it
-  again. It **erases the whole chip**. ⟨CONFIRM: mass erase not bench-tested on this module yet⟩
+  again. It **erases the whole chip**. (Not tested by HardCode on this module.)
 - **Don't program the backdoor key or the flash protection bytes** unless you know you need them.
 - Firmware can turn the SWD and RESET pins into GPIO. SWD comes back after any reset; RESET comes
   back only after a power cycle. To recover: hold **RESET** low, power-cycle, then connect the probe

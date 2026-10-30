@@ -9,7 +9,6 @@ Arm Cortex-M0+ with 64 KB flash that runs from **2.7 V to 5.5 V**, so you can wo
 over **SWD**. All usable I/O is on two 1x20 headers.
 
 > 🛒 **Buy:** Tindie — coming soon · Lectronz — coming soon <!-- ⟨TODO: product links once listed⟩ -->
-> 🔌 Need a programmer? KE02/KE04 support for the [HardCode Flash Station](https://github.com/hardcodebr) is in development. <!-- ⟨CONFIRM: change to "supported" + product link after the station bench acceptance⟩ -->
 
 ## Features
 - **NXP Kinetis KE02 or KE04** (MKE02Z64 / MKE04Z64), Arm Cortex-M0+, 64 KB flash
@@ -29,17 +28,17 @@ over **SWD**. All usable I/O is on two 1x20 headers.
 - [Datasheet](docs/datasheet.md)
 - [Pinout](docs/pinout.md)
 - [FAQ / Troubleshooting](docs/faq.md)
+- [Firmware examples: blink + serial, echo (ready .bin + sources)](examples/)
 
 ## What's in the box
 HC26060 module (KE02 or KE04, as ordered) · 2× 1x20 pin headers + 1× 1x4 right-angle SWD header
 (loose, to solder) · quick-start card · ESD bag. USB-C cable and SWD probe not included.
-<!-- ⟨CONFIRM: owner decision — headers loose vs pre-soldered, cable option⟩ -->
 
 *Rev A — first production batch.*
 
 ---
 Made by [HardCode](https://hardcode.tools) · support@hardcode.tools
-*The schematic is provided as a PDF ([docs/hardware](docs/hardware/)). The editable hardware design files (KiCad sources, layout, Gerbers) are not published.* ⟨TODO: publish the cleaned-up schematic⟩
+*A functional schematic (no component values or part numbers) is provided as a PDF in [docs/hardware](docs/hardware/). The editable hardware design files (KiCad sources, layout, Gerbers, BOM) are not published.*
 
 ## 💬 Feedback
 Suggestions or questions → [open a discussion](https://github.com/hardcodebr/ke-black-pill/discussions) · support@hardcode.tools

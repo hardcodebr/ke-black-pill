@@ -1,7 +1,7 @@
 # Schematic
 
-- [HC26060 schematic, rev A (PDF)](HC26060_schematic_revA_DRAFT.pdf)
+- [KE02/KE04 Black Pill schematic, rev A (PDF)](KE02_KE04_Black_Pill_schematic_revA.pdf)
 
-⟨TODO⟩ **DRAFT, internal review only.** The owner will clean up the schematic before it is published. Replace this PDF with the cleaned-up export, and drop "_DRAFT" from the file name.
-
-The schematic PDF is provided for reference (pin functions, power, connectors). The editable design files (KiCad project, PCB layout, Gerbers, BOM) are not published.
+Functional schematic for reference: power path, USB-serial, SWD, buttons, LEDs and the header
+pin assignment. Component values and part numbers are omitted on purpose. The editable design
+files (KiCad project, PCB layout, Gerbers, BOM) are not published.
