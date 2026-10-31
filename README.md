@@ -7,7 +7,7 @@ Arm Cortex-M0+ with 64 KB flash that runs from **2.7 V to 5.5 V**, so you can wo
 5 V** logic. USB-C gives you power **and a serial console** over one cable; program and debug
 over **SWD**. All usable I/O is on two 1x20 headers.
 
-> 🛒 **Buy:** Tindie — coming soon · Lectronz — coming soon <!-- ⟨TODO: product links once listed⟩ -->
+> 🛒 **Buy:** [Lectronz (EUR, ships from Germany)](https://lectronz.com/products/ke-black-pill-kinetis-ke02-ke04-5v-dev-board) · Tindie — coming soon
 
 ## Features
 - **NXP Kinetis KE02 or KE04** (MKE02Z64 / MKE04Z64), Arm Cortex-M0+, 64 KB flash
